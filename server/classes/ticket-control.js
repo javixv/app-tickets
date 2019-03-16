@@ -41,9 +41,13 @@ class TicketControl {
         return `Ticket ${ this.ultimo}`
     }
 
+    getUltimo4(){
+        return this.ultimos4
+    }
+
     atenderTicket(escritorio){
 
-        if(this.tickets === 0){
+        if(this.tickets.length === 0){
 
             return 'No hay tickets pendientes'
 
@@ -59,6 +63,8 @@ class TicketControl {
         if(this.ultimos4.length > 4){
             this.ultimos4.splice(-1,1)
         }
+
+        console.log(this.ultimos4)
 
         this.grabarArchivo();
         return atenderTicket

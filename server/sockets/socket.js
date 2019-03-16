@@ -16,7 +16,29 @@ io.on('connection', ( client) => {
 
     client.emit('estadoActual', {
 
-        actual : ticketControl.getUltimoTicket()
+        actual : ticketControl.getUltimoTicket(),
+        ultimos4 : ticketControl.getUltimo4()
 
     })
+
+    client.on('atenderTicket', (data, callback) => {
+        if(!data.escritorio){
+            return callback({
+                message : 'El escritorio es requerido'
+            })
+        }
+
+
+        
+        let atenderTicket = ticketControl.atenderTicket(data.escritorio);
+        
+        callback(atenderTicket);
+
+            client.broadcast.emit('ultimos4', {
+                ultimos4: ticketControl.getUltimo4()
+            })
+    })
+
+
+
 })
